@@ -27,6 +27,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+
 
 public class MapsActivity extends BaseActivity implements OnMapReadyCallback, LocationListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, GoogleMap.OnMarkerClickListener {
 
@@ -36,6 +38,7 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback, Lo
     Location user = null;
     Location distuser = null;
     float totaldistance = 0;
+    ArrayList<Location> locset = new ArrayList<Location>();
 
     private static final PlaceLocation[] ALLPLACESLOCATION = new PlaceLocation[] {
             
@@ -141,22 +144,38 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback, Lo
     @Override
     public void onLocationChanged(Location location) {
 
+
         mMap.clear();
         mMap.addMarker(new MarkerOptions().title("My Location").position(new LatLng(location.getLatitude(),location.getLongitude())).icon(BitmapDescriptorFactory.fromResource(R.drawable.myloc)));
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(),location.getLongitude()), 15));
         user = new Location("My Location");
         user.setLongitude(location.getLongitude());
         user.setLatitude(location.getLatitude());
+        locset.add(user);
         distance(user);
-        if(distuser == null)
+        calcdist();
+
+
+    }
+
+    public void calcdist()
+    {
+
+        if(distuser == null) {
             distuser = user;
+        }
+        else if(locset.size() >= 2){
+
+            int size = locset.size();
+            size = size-2;
+            distuser = locset.get(size);
+        }
 
         if(distuser != user)
         {
             totaldistance+=distuser.distanceTo(user);
 
         }
-
     }
 
     public void distance(Location l)
