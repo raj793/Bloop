@@ -5,9 +5,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
 
-/**
- * Created by shreyash on 11-06-2016.
- */
+
 public class PermissionChecks {
 
     @SuppressLint("NewApi")
