@@ -1,4 +1,4 @@
-# Bloop
+# Bloop SDK 19 and Above
 
 Clicking on a place marker displays a toast with the distance to that place from your current location.
 
