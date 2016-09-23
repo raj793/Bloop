@@ -9,9 +9,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-/**
- * Created by shreyash on 11-06-2016.
- */
+
 public class BaseActivity  extends AppCompatActivity {
     private static final int REQUEST_ALL_MISSING_PERMISSIONS=1;
 
